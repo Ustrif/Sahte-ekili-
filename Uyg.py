@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QApplication, QVBoxLayout,QPushButton,QLabel,QTextEdit,QLineEdit
+from PyQt5.QtWidgets import QWidget, QApplication, QVBoxLayout,QPushButton,QLabel,QTextEdit,QLineEdit,QHBoxLayout,QComboBox
 
 from PyQt5.QtWidgets import QAction,qApp,QMainWindow
 
@@ -15,23 +15,54 @@ class Yapi(QWidget):
 
         self.kelimeler = QTextEdit()
         self.buton = QPushButton("Çekilişi Yap!")
+        self.burl_ad = QLabel("Gönderinin Bağlantısı: ")
+        self.burl = QLineEdit("")
         self.sonu = QLabel("")
 
+        self.etiket_ad = QLabel("Her etiket 1 katılım sayılsın mı ?")
+        a = ["Evet","Hayır"]
+        self.etiket = QComboBox(self)
+        self.etiket.addItems(a)
+
+        self.kisi = QLineEdit()
+        self.kisi_ad = QLabel("Çekilişi kazanacak kişi sayısı ?")
+
+        self.bosluk1 = QLabel("")
+        self.bosluk2 = QLabel("")
+
+
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.burl_ad)
+        hbox.addWidget(self.burl)
+
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(self.etiket_ad)
+        hbox1.addWidget(self.etiket)
+
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(self.kisi_ad)
+        hbox2.addWidget(self.kisi)
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.kelimeler)
+        vbox.addWidget(self.bosluk1)
         vbox.addWidget(self.sonu)
+        vbox.addWidget(self.bosluk2)
+        vbox.addLayout(hbox)
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
         vbox.addWidget(self.buton)
+
         self.setLayout(vbox)
 
-        self.setGeometry(300, 200, 400, 400)
+        self.setGeometry(400, 100, 400, 400)
         self.setWindowTitle("Çekiliş Yazılımı")
 
         self.buton.clicked.connect(self.bas)
         self.show()
 
     def bas(self):
-        self.sonu.setText("Kazanan : {}".format(atmaca))
+        self.sonu.setText("Kazananlar : {}".format(atmaca))
 
 
 
