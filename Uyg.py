@@ -55,24 +55,21 @@ class Yapi(QWidget):
 
         self.setLayout(vbox)
 
-        self.setGeometry(400, 100, 400, 400)
-        self.setWindowTitle("Çekiliş Yazılımı")
 
         self.buton.clicked.connect(self.bas)
-        self.show()
+
 
     def bas(self):
         self.sonu.setText("Kazananlar : {}".format(atmaca))
 
 
 
-class ana(QMainWindow):
+class Menu(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.pencere = Yapi()
-
-        self.setCentralWidget(self.pencere)
+        self.kapan = Yapi()
+        self.setCentralWidget(self.kapan)
 
         self.devam()
 
@@ -86,17 +83,26 @@ class ana(QMainWindow):
 
         cik = QAction("Çıkış", self)
         cik.setShortcut("ctrl+q")
-        dosya.addAction(cik)
+
 
         hile = QAction("Hile",self)
         hile.setShortcut("ctrl+h")
+
         dosya.addAction(hile)
+        dosya.addAction(cik)
 
+        dosya.triggered.connect(self.bana)
 
-        hile.triggered.connect(lanaaa.show())
-        cik.triggered.connect(self.bana)
+        self.setWindowTitle("Çekiliş Yazılımı")
+        self.setGeometry(400, 100, 400, 400)
+        self.show()
 
-    def bana(self):
+    def bana(self,action):
+        if action.text() == "Hile":
+            lanaaa.show()
+
+        elif action.text() == "Çıkış":
+
             qApp.quit()
 
 
@@ -120,7 +126,6 @@ class ha(QWidget):
 
         self.setGeometry(300,200,300,300)
         self.tkla.clicked.connect(self.lan)
-        self.show()
 
     def lan(self):
         global atmaca
@@ -129,8 +134,8 @@ class ha(QWidget):
 
 if __name__ == "__main__" :
     app = QApplication(sys.argv)
+    pakan = Menu()
     lanaaa = ha()
-    aaa = Yapi()
 
     sys.exit(app.exec_())
 
